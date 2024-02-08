@@ -18,53 +18,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Hobby {
-  String title;
-  bool isChecked;
-
-  Hobby({required this.title, this.isChecked = false});
-}
-
 class MyAlertDialogDemo extends StatefulWidget {
   @override
   _MyAlertDialogDemoState createState() => _MyAlertDialogDemoState();
 }
 
 class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
-
-
-  Future<void> _showAlertDialog(BuildContext context) async {
-    final result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Election 2020"),
-          content: Text("Will you vote for Trump?"),
-          actions: [
-            ElevatedButton(
-              child: Text("Yes"),
-              onPressed: () {
-                Navigator.of(context).pop("Yes, Of course!"); // Return value
-              },
-            ),
-            ElevatedButton(
-              child: Text("No"),
-              onPressed: () {
-                Navigator.of(context)
-                    .pop("No, I will vote for Biden"); // Return value
-              },
-            ),
-          ],
-        );
-      },
+  String _selectedGender = 'Male';
+  bool isLoading = false;
+  Widget _buildGenderSelector() {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: const Text('Male'),
+          leading: Radio<String>(
+            value: 'Male',
+            groupValue: _selectedGender,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedGender = value!;
+              });
+            },
+          ),
+        ),
+        ListTile(
+          title: const Text('Female'),
+          leading: Radio<String>(
+            value: 'Female',
+            groupValue: _selectedGender,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedGender = value!;
+              });
+            },
+          ),
+        ),
+      ],
     );
-
-    if (result != null) {
-      print("User selected: $result");
-    }
   }
-
-  bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -81,17 +72,46 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
             ],
           ),
         ),
-        body: Center(
+        body: Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height *
+                  0.1), // Adjust the top padding
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center vertically
-            children: [
-
-
-
-
-              
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              if (isLoading)
+                LinearProgressIndicator(
+                  // You can style your LinearProgressIndicator here
+                  backgroundColor: Colors.grey[200],
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                ),
+              SizedBox(
+                  height:
+                      8), // Adds space between the progress bar and the next widget
+              Text(
+                'Please let us know your gender:',
+                style: TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
+              _buildGenderSelector(), // Call the method to build gender radio buttons
+              Text(
+                'Hello ${_selectedGender == 'Male' ? 'gentleman' : 'lady'}!',
+                style: TextStyle(
+                  fontSize: 18.0,
+                ),
+              ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              isLoading = !isLoading;
+            });
+          },
+          tooltip: 'Download',
+          child: Icon(Icons.cloud_download),
         ),
         drawer: Drawer(
           child: ListView(
