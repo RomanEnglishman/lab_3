@@ -73,37 +73,39 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height *
-                  0.1), // Adjust the top padding
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              if (isLoading)
-                LinearProgressIndicator(
-                  // You can style your LinearProgressIndicator here
-                  backgroundColor: Colors.grey[200],
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                ),
-              SizedBox(
-                  height:
-                      8), // Adds space between the progress bar and the next widget
-              Text(
-                'Please let us know your gender:',
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
-              ),
-              _buildGenderSelector(), // Call the method to build gender radio buttons
-              Text(
-                'Hello ${_selectedGender == 'Male' ? 'gentleman' : 'lady'}!',
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
-              ),
-            ],
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Please let us know your gender:',
+            style: TextStyle(fontSize: 18.0),
           ),
-        ),
+          _buildGenderSelector(),
+          Text(
+            'Hello, ${_selectedGender == 'Male' ? 'gentleman' : 'lady'}!',
+            style: TextStyle(fontSize: 18.0),
+          ),
+          // If isLoading is true, show the CircularProgressIndicator
+          if (isLoading)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+          // Show a LinearProgressIndicator under the CircularProgressIndicator
+          if (isLoading)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: LinearProgressIndicator(
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+        ],
+      ),
+    ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
