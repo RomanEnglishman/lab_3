@@ -18,12 +18,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Hobby {
+  String title;
+  bool isChecked;
+
+  Hobby({required this.title, this.isChecked = false});
+}
+
 class MyAlertDialogDemo extends StatefulWidget {
   @override
   _MyAlertDialogDemoState createState() => _MyAlertDialogDemoState();
 }
 
 class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
+  List<Hobby> hobbies = [
+    Hobby(title: 'Foosball'),
+    Hobby(title: 'Baseball'),
+    Hobby(title: 'Video Games'),
+    Hobby(title: 'Reading Books'),
+    Hobby(title: 'Surfing The Internet'),
+  ];
+
   Future<void> _showAlertDialog(BuildContext context) async {
     final result = await showDialog(
       context: context,
@@ -76,11 +91,15 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Center vertically
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  _showAlertDialog(context);
-                },
-                child: Text("Show AlertDialog"),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 30.0), // Add padding only to the bottom
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showAlertDialog(context);
+                  },
+                  child: Text("Show AlertDialog"),
+                ),
               ),
               SizedBox(height: 20), // Add some spacing
               Container(
@@ -101,7 +120,6 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
                       mainAxisSize: MainAxisSize
                           .min, // Use the space needed for the children only
                       children: <Widget>[
-              
                         ListTile(
                           leading: Icon(Icons.album, size: 60),
                           title: Text(
@@ -148,13 +166,44 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
                           ),
                         ),
                       ],
-                      
-                    
-                    
-                    
-                    
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Choose your hobbies:",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: hobbies.length,
+                  itemBuilder: (context, index) {
+                    return CheckboxListTile(
+                      title: Text(hobbies[index].title),
+                      value: hobbies[index].isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hobbies[index].isChecked = value!;
+                        });
+                      },
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    bottom: 16.0), // Add padding only to the bottom
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle the button press
+                  },
+                  child: Text("Surfing the Internet"),
                 ),
               ),
             ],
