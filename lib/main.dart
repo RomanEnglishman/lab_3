@@ -31,13 +31,7 @@ class MyAlertDialogDemo extends StatefulWidget {
 }
 
 class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
-  List<Hobby> hobbies = [
-    Hobby(title: 'Foosball'),
-    Hobby(title: 'Baseball'),
-    Hobby(title: 'Video Games'),
-    Hobby(title: 'Reading Books'),
-    Hobby(title: 'Surfing The Internet'),
-  ];
+
 
   Future<void> _showAlertDialog(BuildContext context) async {
     final result = await showDialog(
@@ -91,121 +85,11 @@ class _MyAlertDialogDemoState extends State<MyAlertDialogDemo> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Center vertically
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 30.0), // Add padding only to the bottom
-                child: ElevatedButton(
-                  onPressed: () {
-                    _showAlertDialog(context);
-                  },
-                  child: Text("Show AlertDialog"),
-                ),
-              ),
-              SizedBox(height: 20), // Add some spacing
-              Container(
-                width: 350,
-                // Adjust the height to ensure content fits without overflow
-                height: 220, // Increased height to accommodate buttons
-                padding: EdgeInsets.all(16.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Colors.orange,
-                  elevation: 10,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.all(16.0), // Padding inside the card
-                    child: Column(
-                      mainAxisSize: MainAxisSize
-                          .min, // Use the space needed for the children only
-                      children: <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.album, size: 60),
-                          title: Text(
-                            "Sonu Nigam",
-                            style:
-                                TextStyle(fontSize: 24.0), // Reduced font size
-                          ),
-                          subtitle: Text(
-                            "Best of Sonu Nigam Music",
-                            style:
-                                TextStyle(fontSize: 14.0), // Reduced font size
-                          ),
-                        ),
-                        // Use a Flexible widget to prevent overflow
-                        Flexible(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white, // Background color
-                                  onPrimary: Colors.black, // Text color
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isPlaying = true;
-                                  });
-                                },
-                                child: Text("Play"),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white, // Background color
-                                  onPrimary: Colors.black, // Text color
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    isPlaying = false;
-                                  });
-                                },
-                                child: Text("Pause"),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Choose your hobbies:",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: hobbies.length,
-                  itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                      title: Text(hobbies[index].title),
-                      value: hobbies[index].isChecked,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          hobbies[index].isChecked = value!;
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 16.0), // Add padding only to the bottom
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle the button press
-                  },
-                  child: Text("Surfing the Internet"),
-                ),
-              ),
+
+
+
+
+              
             ],
           ),
         ),
